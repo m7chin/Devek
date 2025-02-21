@@ -1,109 +1,118 @@
-# **WebSocket Event Logger 📡📜**  
+# WebSocket Event Logger
 
-A real-time event logging system using WebSockets, Node.js, and Redis. This application tracks user activity events and provides real-time updates to subscribed clients.
+A real-time event logging system using WebSockets, Node.js, and Redis.
 
-## **Features**
-✅ WebSocket server for receiving and broadcasting user events  
-✅ Stores events in Redis for short-term storage  
-✅ REST API to fetch recent user events  
-✅ Real-time event updates to connected clients  
+## Features
 
-## **Tech Stack**  
-- **Backend**: Node.js, TypeScript, WebSockets (`ws` library)  
-- **Database**: Redis (for in-memory storage)  
-- **Deployment**: Local execution with Docker or manual Redis setup  
+- WebSocket server to receive user activity events
+- Stores events in Redis for short-term storage
+- API endpoint to retrieve the last 10 events for a user
+- Real-time event broadcasting to connected clients
 
----
+## Tech Stack
 
-## **Getting Started 🚀**  
+- **Backend:** Node.js, WebSockets (ws)
+- **Database:** Redis (for in-memory storage)
+- **Deployment:** Local execution with a simple script
 
-### **Prerequisites**
-Ensure you have the following installed:
-- **Node.js** (v16+ recommended)
-- **npm** (comes with Node.js)
-- **Redis** (either installed locally or running via Docker)
+## Installation
 
-### **Installation**  
 Clone the repository and install dependencies:
+
 ```sh
 git clone https://github.com/m7chin/Devek.git
 cd Devek
 npm install
-Environment Variables
-Create a .env file in the root directory and add:
+```
 
-ini
-Copy
-Edit
-PORT=3000
-REDIS_URL=redis://localhost:6379
-Running Redis
-Option 1: Using Docker (Recommended)
-If you have Docker installed, run:
+## Running the Server
 
-sh
-Copy
-Edit
-docker run -d --name redis-server -p 6379:6379 redis
-Option 2: Running Redis Locally
-If Redis is installed, start it with:
+Start the Redis server (if not already running):
 
-sh
-Copy
-Edit
-redis-server
-Running the Server
-Start the WebSocket and REST API server:
+```sh
+docker run --name redis-server -p 6379:6379 -d redis
+```
 
-sh
-Copy
-Edit
+Then, start the backend server:
+
+```sh
 npm start
-Server will be running on http://localhost:3000.
+```
 
-Usage
-1️⃣ WebSocket Connection
-Connect a WebSocket client to:
+## WebSocket Usage
 
-arduino
-Copy
-Edit
+Clients can connect to the WebSocket server at:
+
+```
 ws://localhost:3000
-Send a message in JSON format:
+```
 
-json
-Copy
-Edit
+### Example WebSocket Event
+
+A client should send JSON messages like:
+
+```json
 {
-  "userId": "12345",
-  "eventType": "file_open"
+  "userId": "123",
+  "eventType": "login"
 }
-2️⃣ Fetch Recent Events
-Retrieve the last 10 events for a user via REST API:
+```
 
-bash
-Copy
-Edit
-GET /events/recent?userId=12345
-Testing 🛠️
-Use Postman, cURL, or a WebSocket client (like wscat) for testing.
+The server will respond with:
 
-To test WebSockets:
+```json
+{
+  "userId": "123",
+  "eventType": "login",
+  "timestamp": "2025-02-21T12:00:00.000Z"
+}
+```
 
-sh
-Copy
-Edit
-npm install -g wscat
+## API Endpoints
+
+### Retrieve Recent Events
+
+- **URL:** `GET /events/recent`
+- **Query Params:** `userId` (required)
+- **Response:** Last 10 events for the given user.
+
+#### Example Request:
+
+```sh
+curl "http://localhost:3000/events/recent?userId=123"
+```
+
+#### Example Response:
+
+```json
+[
+  {
+    "userId": "123",
+    "eventType": "login",
+    "timestamp": "2025-02-21T12:00:00.000Z"
+  },
+  {
+    "userId": "123",
+    "eventType": "file_open",
+    "timestamp": "2025-02-21T12:05:00.000Z"
+  }
+]
+```
+
+## Testing
+
+You can test the WebSocket server using a WebSocket client like:
+
+```sh
 wscat -c ws://localhost:3000
-Then send:
+```
 
-json
-Copy
-Edit
-{"userId": "12345", "eventType": "login"}
-To test the API:
+Then, send a message:
 
-sh
-Copy
-Edit
-curl "http://localhost:3000/events/recent?userId=12345"
+```sh
+{"userId": "123", "eventType": "logout"}
+```
+
+## License
+
+This project is licensed under the MIT License.
