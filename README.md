@@ -1,31 +1,33 @@
-WebSocket Event Logger 📡📜
+# **WebSocket Event Logger 📡📜**  
+
 A real-time event logging system using WebSockets, Node.js, and Redis. This application tracks user activity events and provides real-time updates to subscribed clients.
 
-Features
-✅ WebSocket server for receiving and broadcasting user events
-✅ Stores events in Redis for short-term storage
-✅ REST API to fetch recent user events
-✅ Real-time event updates to connected clients
+## **Features**
+✅ WebSocket server for receiving and broadcasting user events  
+✅ Stores events in Redis for short-term storage  
+✅ REST API to fetch recent user events  
+✅ Real-time event updates to connected clients  
 
-Tech Stack
-Backend: Node.js, TypeScript, WebSockets (ws library)
-Database: Redis (for in-memory storage)
-Deployment: Local execution with Docker or manual Redis setup
-Getting Started 🚀
-Prerequisites
+## **Tech Stack**  
+- **Backend**: Node.js, TypeScript, WebSockets (`ws` library)  
+- **Database**: Redis (for in-memory storage)  
+- **Deployment**: Local execution with Docker or manual Redis setup  
+
+---
+
+## **Getting Started 🚀**  
+
+### **Prerequisites**
 Ensure you have the following installed:
+- **Node.js** (v16+ recommended)
+- **npm** (comes with Node.js)
+- **Redis** (either installed locally or running via Docker)
 
-Node.js (v16+ recommended)
-npm (comes with Node.js)
-Redis (either installed locally or running via Docker)
-Installation
+### **Installation**  
 Clone the repository and install dependencies:
-
-sh
-Copy
-Edit
-git clone https://github.com/your-username/websocket-event-logger.git
-cd websocket-event-logger
+```sh
+git clone https://github.com/m7chin/Devek.git
+cd Devek
 npm install
 Environment Variables
 Create a .env file in the root directory and add:
